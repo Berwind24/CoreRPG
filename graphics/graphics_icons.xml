@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<icon name="rulesetlogo_CoreRPG" file="graphics/icons/rulesetlogo_CoreRPG.png" />
+
+	<!-- Common -->
+	<icon name="window_resize" file="graphics/icons/window_resize.png" />
+	<icon name="footer_wide" file="graphics/icons/footer_wide.png" />
+	<icon name="token_empty" file="graphics/icons/token_empty.png" />
+	<icon name="reorder" file="graphics/icons/reorder.png" />
+	<icon name="reorder_down" file="graphics/icons/reorder_down.png" />
+
+	<icon name="tempmod" file="graphics/icons/tempmod.png" />
+	<icon name="coins" file="graphics/icons/coins.png" />
+	<icon name="xp" file="graphics/icons/xp.png" />
+	<icon name="blank" file="graphics/icons/blank.png" />
+	<icon name="shopping" file="graphics/icons/shopping.png" />
+
+	<icon name="combobox_button" file="graphics/icons/combobox_button.png" />
+	<icon name="combobox_button_active" file="graphics/icons/combobox_button_active.png" />
+
+	<!-- Master index -->
+	<icon name="button_page_start" file="graphics/icons/arrow_sm_first.png" />
+	<icon name="button_page_prev" file="graphics/icons/arrow_sm_left.png" />
+	<icon name="button_page_next" file="graphics/icons/arrow_sm_right.png" />
+	<icon name="button_page_end" file="graphics/icons/arrow_sm_last.png" />
+	<icon name="button_page_top" file="graphics/icons/arrow_sm_up.png" />
+	
+	<!-- Dragging -->
+	<icon name="action_roll" file="graphics/icons/action_roll.png" />
+	<icon name="action_effect" file="graphics/icons/action_effect.png" />
+	<icon name="action_attack" file="graphics/icons/action_attack.png" />
+	<icon name="action_damage" file="graphics/icons/action_damage.png" />
+	<icon name="action_heal" file="graphics/icons/action_heal.png" />
+	<icon name="action_option" file="graphics/icons/action_option.png" />
+
+	<!-- Rolls -->
+	<icon name="roll_cast" file="graphics/icons/roll_cast.png" />
+	<icon name="roll_attack" file="graphics/icons/roll_attack.png" />
+	<icon name="roll_attack_miss" file="graphics/icons/roll_attack_miss.png" />
+	<icon name="roll_attack_hit" file="graphics/icons/roll_attack_hit.png" />
+	<icon name="roll_attack_crit" file="graphics/icons/roll_attack_crit.png" />
+	<icon name="roll_damage" file="graphics/icons/roll_damage.png" />
+	<icon name="roll_heal" file="graphics/icons/roll_heal.png" />
+	<icon name="roll_effect" file="graphics/icons/roll_effect.png" />
+
+	<!-- Chat window -->
+	<icon name="chat_speak" file="graphics/icons/chat_speak.png" />
+	<icon name="chat_story" file="graphics/icons/chat_story.png" />
+	<icon name="chat_action" file="graphics/icons/chat_action.png" />
+	<icon name="chat_ooc" file="graphics/icons/chat_ooc.png" />
+	<icon name="chat_emote" file="graphics/icons/chat_emote.png" />
+	<icon name="poll_check" file="graphics/icons/poll_check.png" />
+	<icon name="poll_empty" file="graphics/icons/poll_empty.png" />
+	<icon name="poll_negative" file="graphics/icons/poll_negative.png" />
+	<icon name="chat_wait" file="graphics/icons/chat_wait.png" />
+	<icon name="indicator_stop" file="graphics/icons/indicator_stop.png" />
+	<icon name="indicator_whisper" file="graphics/icons/indicator_whisper.png" />
+	<icon name="gmdieicon" file="graphics/icons/gmdie_icon.png" />
+
+	<!-- Character list -->
+	<icon name="charlist_typing" file="graphics/icons/charlist_typing.png" />
+	<icon name="charlist_idling" file="graphics/icons/charlist_idling.png" />
+	<icon name="charlist_afk" file="graphics/icons/charlist_afk.png" />
+
+	<!-- Modifier stack -->
+	<icon name="modcollector" file="graphics/icons/modcollector.png" />
+	<icon name="modcollector_counter" file="graphics/icons/modcollector_counter.png" />
+	
+	<!-- Dice tower -->
+	<icon name="dicetower_icon" file="graphics/icons/dicetower_icon.png" />
+	<icon name="dicetower_normal" file="graphics/icons/dicetower_normal.png" />
+	<icon name="dicetower_drop" file="graphics/icons/dicetower_drop.png" />
+	
+	<!-- Token Bag -->
+	<icon name="tokenbag" file="graphics/icons/tokenbag.png" />
+	<icon name="tokenbagup" file="graphics/icons/tokenbag_up.png" />
+	
+	<!-- Library / Modules -->
+	<icon name="module_loaded" file="graphics/icons/module_loaded.png" />
+	<icon name="module_unloaded" file="graphics/icons/module_unloaded.png" />
+	<icon name="module_loading" file="graphics/icons/module_loading.png" />
+	<icon name="module_unloading" file="graphics/icons/module_unloading.png" />
+	<icon name="module_stateblocked" file="graphics/icons/module_stateblocked.png" />
+	<icon name="module_stateallowed" file="graphics/icons/module_stateallowed.png" />
+	<icon name="module_remote" file="graphics/icons/module_remote.png" />
+	
+	<!-- Calendar -->
+	<icon name="calendar" file="graphics/icons/calendar.png" />
+	<icon name="dot_red" file="graphics/icons/dot_red.png" />
+	<icon name="dot_blue" file="graphics/icons/dot_blue.png" />
+	
+	<!-- Color Selection -->
+	<icon name="colorgizmo_bigbtn_base" file="graphics/icons/colorgizmo_bigbtn_base.png" />
+	<icon name="colorgizmo_bigbtn_color" file="graphics/icons/colorgizmo_bigbtn_color.png" />
+	<icon name="colorgizmo_bigbtn_effects" file="graphics/icons/colorgizmo_bigbtn_effects.png" />
+	<icon name="colorgizmo_bigbtn_text" file="graphics/icons/colorgizmo_bigbtn_text.png" />
+
+	<!-- Assets -->
+	<icon name="asset_preview" file="graphics/icons/asset_preview.png" />
+	<icon name="button_asset_prev" file="graphics/icons/asset_arrow_left.png" />
+	<icon name="button_asset_next" file="graphics/icons/asset_arrow_right.png" />
+	
+	<!-- Sounds -->
+	<icon name="sound_play" file="graphics/icons/sound_play.png" />
+	<icon name="sound_stop" file="graphics/icons/sound_stop.png" />
+	<icon name="sound_volume_up" file="graphics/icons/sound_volume_up.png" />
+	<icon name="sound_volume_down" file="graphics/icons/sound_volume_down.png" />
+	<icon name="sound_volume_mute" file="graphics/icons/sound_volume_mute.png" />
+	<icon name="sound_volume_unmute" file="graphics/icons/sound_volume_unmute.png" />
+	
+	<!-- Campaign records -->
+	<icon name="record_public" file="graphics/icons/record_public.png" />
+	<icon name="record_shared" file="graphics/icons/record_shared.png" />
+	<icon name="record_readonly" file="graphics/icons/record_readonly.png" />
+	<icon name="record_intact" file="graphics/icons/record_intact.png" />
+	<icon name="record_dirty" file="graphics/icons/record_dirty.png" />
+	<icon name="record_identified" file="graphics/icons/record_identified.png" />
+	<icon name="record_unidentified" file="graphics/icons/record_unidentified.png" />
+	
+	<!-- Images -->
+	<icon name="image_pin" file="graphics/icons/image_pin.png" />
+	<icon name="image_pin_public" file="graphics/icons/image_pin_public.png" />
+
+	<icon name="tool_zoomtofit_30" file="graphics/toolbar/tool_zoomtofit_30.png" />
+	<icon name="tool_toggle_30" file="graphics/toolbar/tool_toggle_30.png" />
+	<icon name="tool_select_30" file="graphics/toolbar/tool_select_30.png" />
+	<icon name="tool_paint_30" file="graphics/toolbar/tool_paint_30.png" />
+	<icon name="tool_erase_30" file="graphics/toolbar/tool_erase_30.png" />
+	<icon name="tool_mask_30" file="graphics/toolbar/tool_mask_30.png" />
+	<icon name="tool_grid_30" file="graphics/toolbar/tool_grid_30.png" />
+	<icon name="tool_target_select_30" file="graphics/toolbar/tool_target_select_30.png" />
+	<icon name="tool_target_clear_30" file="graphics/toolbar/tool_target_clear_30.png" />
+	<icon name="tool_target_enemies_30" file="graphics/toolbar/tool_target_enemies_30.png" />
+	<icon name="tool_target_allies_30" file="graphics/toolbar/tool_target_allies_30.png" />
+	<icon name="tool_deathmarker_clear" file="graphics/toolbar/tool_deathmarker_clear.png" />
+	<icon name="tool_shortcut_30" file="graphics/toolbar/tool_shortcut.png" />
+	<icon name="tool_tokenlocked_30" file="graphics/toolbar/tool_token_locked.png" />
+	<icon name="tool_preview_30" file="graphics/toolbar/tool_preview.png" />
+	
+	<!-- Character Sheet -->
+	<icon name="char_encumbrance" file="graphics/icons/char_encumbrance.png" />
+	<icon name="char_inv_carried_header" file="graphics/icons/char_inv_carried_header.png" />
+
+	<icon name="char_weapon_melee" file="graphics/icons/char_weapon_melee.png" />
+	<icon name="char_weapon_ranged" file="graphics/icons/char_weapon_ranged.png" />
+	<icon name="char_weapon_thrown" file="graphics/icons/char_weapon_thrown.png" />
+	<icon name="char_weapon_hand1" file="graphics/icons/char_weapon_hand1.png" />
+	<icon name="char_weapon_hand2" file="graphics/icons/char_weapon_hand2.png" />
+	<icon name="char_weapon_handoff" file="graphics/icons/char_weapon_handoff.png" />	
+	
+	<!-- Minimized -->	
+	<icon name="minimized_glow" file="graphics/icons/minimized_glow.png" />
+	<icon name="minimized_image" file="graphics/icons/minimized_image.png" />
+	<icon name="minimized_encounter" file="graphics/icons/minimized_encounter.png" />
+	<icon name="minimized_item" file="graphics/icons/minimized_item.png" />
+	<icon name="minimized_parcel" file="graphics/icons/minimized_item.png" />
+	<icon name="minimized_char" file="graphics/icons/minimized_char.png" />
+	<icon name="minimized_npc" file="graphics/icons/minimized_npc.png" />
+	<icon name="minimized_utility" file="graphics/icons/minimized_utility.png" />
+	<icon name="minimized_reference" file="graphics/icons/minimized_reference.png" />
+	<icon name="minimized_note" file="graphics/icons/minimized_note.png" />
+	<icon name="minimized_combat" file="graphics/icons/minimized_combat.png" />
+
+	<!-- Combat tracker -->
+	<icon name="turn_flag" file="graphics/icons/turn_flag.png" />
+	<icon name="ct_active" file="graphics/icons/ct_active.png" />
+	<icon name="ct_passive" file="graphics/icons/ct_passive.png" />
+	<icon name="ct_faction_empty" file="graphics/icons/ct_faction_empty.png" />
+	<icon name="ct_faction_friend" file="graphics/icons/ct_faction_friend.png" />
+	<icon name="ct_faction_neutral" file="graphics/icons/ct_faction_neutral.png" />
+	<icon name="ct_faction_foe" file="graphics/icons/ct_faction_foe.png" />
+
+	<icon name="drag_targeting" file="graphics/icons/drag_targeting.png" />
+	<icon name="icon_targeting_off" file="graphics/icons/icon_targeting_off.png" />
+
+	<!-- Tokens - Effects - General -->
+	<icon name="cond_more" file="graphics/token/token_cond_more.png" />
+	<icon name="cond_generic" file="graphics/token/token_cond_generic.png" />
+	<icon name="cond_bonus" file="graphics/token/token_cond_bonus.png" />
+	<icon name="cond_penalty" file="graphics/token/token_cond_penalty.png" />
+
+	<!-- Tokens - Effects - Conditions -->
+	<icon name="cond_blinded" file="graphics/token/token_cond_blinded.png" />
+	<icon name="cond_charmed" file="graphics/token/token_cond_charmed.png" />
+	<icon name="cond_confused" file="graphics/token/token_cond_confused.png" />
+	<icon name="cond_dazed" file="graphics/token/token_cond_dazed.png" />
+	<icon name="cond_deafened" file="graphics/token/token_cond_deafened.png" />
+	<icon name="cond_encumbered" file="graphics/token/token_cond_encumbered.png" />
+	<icon name="cond_frightened" file="graphics/token/token_cond_frightened.png" />
+	<icon name="cond_grappled" file="graphics/token/token_cond_grappled.png" />
+	<icon name="cond_helpless" file="graphics/token/token_cond_helpless.png" />
+	<icon name="cond_incorporeal" file="graphics/token/token_cond_incorporeal.png" />
+	<icon name="cond_invisible" file="graphics/token/token_cond_invisible.png" />
+	<icon name="cond_paralyzed" file="graphics/token/token_cond_paralyzed.png" />
+	<icon name="cond_pinned" file="graphics/token/token_cond_pinned.png" />
+	<icon name="cond_prone" file="graphics/token/token_cond_prone.png" />
+	<icon name="cond_restrained" file="graphics/token/token_cond_restrained.png" />
+	<icon name="cond_sickened" file="graphics/token/token_cond_sickened.png" />
+	<icon name="cond_slowed" file="graphics/token/token_cond_slowed.png" />
+	<icon name="cond_stunned" file="graphics/token/token_cond_stunned.png" />
+	<icon name="cond_surprised" file="graphics/token/token_cond_surprised.png" />
+	<icon name="cond_turned" file="graphics/token/token_cond_turned.png" />
+	<icon name="cond_unconscious" file="graphics/token/token_cond_unconscious.png" />
+	<icon name="cond_weakened" file="graphics/token/token_cond_weakened.png" />
+	
+	<!-- Tokens - Effects - Common -->
+	<icon name="cond_advantage" file="graphics/token/token_cond_advantage.png" />
+	<icon name="cond_bleed" file="graphics/token/token_cond_bleed.png" />
+	<icon name="cond_cover" file="graphics/token/token_cond_cover.png" />
+	<icon name="cond_conceal" file="graphics/token/token_cond_conceal.png" />
+	<icon name="cond_disadvantage" file="graphics/token/token_cond_disadvantage.png" />
+	<icon name="cond_immune" file="graphics/token/token_cond_immune.png" />
+	<icon name="cond_regeneration" file="graphics/token/token_cond_regen.png" />
+	<icon name="cond_resistance" file="graphics/token/token_cond_resist.png" />
+	<icon name="cond_vulnerable" file="graphics/token/token_cond_vuln.png" />
+
+	<!-- Tokens - Health -->
+	<icon name="healthbar" file="graphics/token/token_healthbar.png" />
+	<icon name="healthdot" file="graphics/token/token_healthdot.png" />
+	
+	<!-- Misc -->
+	<icon name="error" file="graphics/icons/error.png" />
+	<icon name="search" file="graphics/icons/search.png" />
+	<icon name="arrowleft" file="graphics/icons/arrow_left.png" />
+	<icon name="arrowright" file="graphics/icons/arrow_right.png" />
+	<icon name="arrow_sm_left" file="graphics/icons/arrow_sm_left.png" />
+	<icon name="arrow_sm_right" file="graphics/icons/arrow_sm_right.png" />
+	<icon name="arrow_sm_down" file="graphics/icons/arrow_sm_down.png" />
+	<icon name="arrow_sm_up" file="graphics/icons/arrow_sm_up.png" />
+	<icon name="visibilityon" file="graphics/icons/visibilityon.png" />
+	<icon name="visibilityoff" file="graphics/icons/visibilityoff.png" />
+	<icon name="field_rollable" file="graphics/icons/field_rollable.png" />
+	<icon name="field_rollable_transparent" file="graphics/icons/field_rollable_transparent.png" />
+	<icon name="field_linked" file="graphics/icons/field_linked.png" />
+	<icon name="field_dice_empty" file="graphics/icons/field_dice_empty.png" />
+	<icon name="padlock_open" file="graphics/icons/padlock_open.png" />
+	<icon name="padlock_closed" file="graphics/icons/padlock_closed.png" />
+
+	<icon name="power_weapon" file="graphics/icons/power_weapon.png" />
+	<icon name="power_casterspontaneous" file="graphics/icons/power_casterspontaneous.png" />
+	<icon name="power_casterprep" file="graphics/icons/power_casterprep.png" />
+</root>

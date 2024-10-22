@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="battle" copy="record_window">
+		<placement>
+			<size width="450" height="450" />
+		</placement>
+		<sizelimits>
+			<minimum width="450" height="400" />
+			<dynamic />
+		</sizelimits>
+		<script>
+			function onInit()
+				super.onInit();
+				if Session.IsHost then
+					sub_buttons.setValue("battle_buttons", getDatabaseNode());
+					sub_buttons.setVisible(true);
+				end
+			end
+			function onDrop(x, y, draginfo)
+				local nodeRecord = getDatabaseNode();
+				if WindowManager.getReadOnlyState(nodeRecord) then
+					return;
+				end
+				if draginfo.isType("shortcut") then
+					local sClass,sRecord = draginfo.getShortcutData();
+					NPCManager.addLinkToBattle(nodeRecord, sClass, sRecord);
+					return true;
+				end
+			end
+		</script>
+		<minimize>minimized_combat</minimize>
+		<sheetdata>
+			<sub_content_framed_groupbox_narrow_hidden_bottom name="sub_buttons" insertbefore="content" />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="battle_header" copy="record_header" />
+	<windowclass name="battle_buttons">
+		<margins control="0,0,0,5" />
+		<sheetdata>
+			<button_text name="addct">
+				<anchored position="insidetopleft" offset="5,5" width="120" />
+				<state textres="battle_label_addct" />
+				<gmvisibleonly />
+				<script>
+					function onButtonPress()
+						CombatRecordManager.onBattleButtonAdd(UtilityManager.getTopWindow(window));
+					end
+				</script>
+			</button_text>
+
+			<button_text name="button_quickmap">
+				<anchored position="insidetopright" offset="5,5" width="120" />
+				<state textres="quickmap_window_title" />
+				<script>
+					function onButtonPress()
+						QuickMapManager.openWindowWithBattle(window.getDatabasePath());
+					end
+				</script>
+			</button_text>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="battle_main">
+		<script>
+			function update()
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				
+				list_iedit.setVisible(not bReadOnly);
+
+				list.setReadOnly(bReadOnly);
+				for _,w in pairs(list.getWindows()) do
+					w.count.setReadOnly(bReadOnly);
+					w.token.setReadOnly(bReadOnly);
+					w.name.setReadOnly(bReadOnly);
+				end
+			end
+		</script>
+		<sheetdata>
+			<anchor_content_top />
+
+			<list_content_labeled_alternating_top name="list">
+				<datasource>.npclist</datasource>
+				<class>battle_npc</class>
+				<allowdelete />
+				<sortby><field>name</field></sortby>
+				<empty font="list-empty" gmtextres="battle_emptylist" />
+			</list_content_labeled_alternating_top>
+
+			<anchor_list_content_label_left />
+			<anchor_list_content_label_right />
+			<label_list_content_left name="label_token">
+				<anchored width="30" />
+				<center />
+			</label_list_content_left>
+			<label_list_content_number_left name="label_count">
+				<anchored width="25" />
+				<static>#</static>
+			</label_list_content_number_left>
+			<label_list_content_button_iedit_right name="list_iedit" />
+			<label_list_content_noframe name="label_name">
+				<static textres="battle_label_name" />
+			</label_list_content_noframe>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="battle_npc">
+		<margins control="0,0,0,2" />
+		<script file="campaign/scripts/battle_npc.lua" />
+		<sheetdata>
+			<anchor_listitem_left_encounter name="leftanchor" />
+			<token_listitem_encounter name="token" />
+			<number_listitem_count_encounter name="count" />
+			
+			<anchor_listitem_right name="rightanchor" />
+			<button_listitem_idelete name="idelete">
+				<editmode>list_iedit</editmode>
+			</button_listitem_idelete>
+			<link_listitem_right name="link" />
+			<button_listitem_faction_right name="faction" />
+			<button_record_isidentified name="isidentified" />
+			
+			<string_listitem_name_encounter name="name" />
+
+			<label_listitem_maplinks_encounter name="maplinks_label" />
+			<list_listitem_maplinks_encounter name="maplinks" />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="battle_npcmaplink">
+		<margins control="0,0,2,2" />
+		<script file="campaign/scripts/battle_npc_maplink.lua" />
+		<sheetdata>
+			<hn name="imagex" />
+			<hn name="imagey" />
+			<hnc name="imageid" />
+			<hlink name="imageref" />
+
+			<tokencontrol name="token">
+				<bounds>2,2,24,24</bounds>
+				<readonly />
+				<script>
+					function onDragStart(button, x, y, draginfo)
+						local _,sRecord = DB.getValue(window.getDatabaseNode(), "...link");
+						local nSpace,_ = ActorCommonManager.getSpaceReach(sRecord);
+						TokenManager.setDragTokenUnits(nSpace);
+					end
+					
+					function onDragEnd(draginfo)
+						TokenManager.endDragTokenWithUnits();
+						
+						local _,dropref = draginfo.getTokenData();
+						window.setLink(dropref);
+						return true;
+					end
+				</script>
+			</tokencontrol>
+			<buttoncontrol name="linked">
+				<bounds>2,2,24,24</bounds>
+				<invisible />
+				<icon normal="poll_check" pressed="poll_check" />
+				<script>
+					function onButtonPress()
+						if Session.IsHost then
+							window.clearLink();
+						end
+					end
+				</script>
+			</buttoncontrol>
+		</sheetdata>
+	</windowclass>
+</root>

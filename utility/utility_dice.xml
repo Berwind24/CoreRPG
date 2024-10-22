@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<!-- Color Select -->
+	<windowclass name="diceselect">
+		<frame>utilitybox</frame>
+		<placement>
+			<size width="705" height="560" />
+		</placement>
+		<sizelimits>
+			<minimum width="405" height="400" />
+			<dynamic />
+		</sizelimits>
+		<helplinkres>help_tool_dice</helplinkres>
+		<script file="utility/scripts/diceselect.lua" />
+		<sheetdata>
+			<windowtitlebar_utilitybox name="title" />
+			<windowmenubar_utilitybox name="menubar" />
+
+			<anchor_content_utilitybox_top />
+			<anchor_content_utilitybox_bottom />
+
+			<sub_content_framed_groupbox_bottom name="sub_controls">
+				<class>diceselect_controls</class>
+			</sub_content_framed_groupbox_bottom>
+			
+			<area_content_top name="area_controls_top">
+				<anchored height="160" />
+			</area_content_top>
+			<subwindow name="sub_color">
+				<anchored to="area_controls_top" position="insideleft" width="120" />
+				<class>diceselect_color</class>
+				<activate />
+				<fastinit />
+			</subwindow>
+			<subwindow name="sub_desktop">
+				<anchored to="area_controls_top" position="insideright">
+					<left offset="120" />
+				</anchored>
+				<class>diceselect_desktop</class>
+				<activate />
+				<fastinit />
+			</subwindow>
+
+			<spacer_content_bottom name="spacer_bottom" />
+
+			<sub_content_framed_groupbox name="sub_groups">
+				<class>diceselect_groups</class>
+			</sub_content_framed_groupbox>
+
+			<resize_utilitybox />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="diceselect_controls">
+		<margins control="0,0,0,5" />
+		<sheetdata>
+			<button_text name="button_panel_togglelock">
+				<anchored position="insidetopleft" offset="5,5" width="120" />
+				<state textres="diceselect_button_panel_togglelock" />
+				<script>
+					function onButtonPress()
+						DiceManager.toggleDicePanelLock();
+					end
+				</script>
+			</button_text>
+			<button_text name="button_drc">
+				<anchored position="insidetopright" offset="5,5" width="120" />
+				<state textres="diceselect_button_drc_action" />
+				<script>
+					function onButtonPress()
+						Interface.openWindow("drclist_action", "");
+					end
+				</script>
+			</button_text>
+			<button_text name="button_drc_actors">
+				<anchored position="insidetopright" offset="135,5" width="120" />
+				<state textres="diceselect_button_drc_actor" />
+				<script>
+					function onButtonPress()
+						Interface.openWindow("drclist_actor", "");
+					end
+				</script>
+			</button_text>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="diceselect_color">
+		<frame>groupbox</frame>
+		<sheetdata>
+			<anchor_content_groupbox_top />
+
+			<header_content_framed_headersimple name="header">
+				<static textres="diceselect_header_color" />
+			</header_content_framed_headersimple>
+
+			<colorpick name="color_body">
+				<anchored to="contentanchor">
+					<top offset="50" />
+					<right anchor="center" />
+				</anchored>
+				<callback>onDiceBodyColorChanged</callback>
+			</colorpick>
+			<label name="label_color_body">
+				<anchored to="color_body" position="above" offset="0,-7" />
+				<static textres="diceselect_label_color_body" />
+				<center />
+				<disabled />
+			</label>
+			<colorpick name="color_text">
+				<anchored to="contentanchor">
+					<top offset="50" />
+					<left anchor="center" />
+				</anchored>
+				<callback>onDiceTextColorChanged</callback>
+			</colorpick>
+			<label name="label_color_text">
+				<anchored to="color_text" position="above" offset="0,-7" />
+				<static textres="diceselect_label_color_text" />
+				<center />
+				<disabled />
+			</label>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="diceselect_desktop">
+		<frame>groupbox</frame>
+		<sheetdata>
+			<anchor_content_groupbox_top />
+			<anchor_content_groupbox_bottom />
+
+			<header_content_framed_headersimple name="header">
+				<static textres="diceselect_header_desktop" />
+			</header_content_framed_headersimple>
+
+			<genericcontrol name="frame_desktop_scale">
+				<anchored to="contentanchor" height="30">
+					<left />
+					<right />
+					<bottom parent="bottomanchor" relation="relative" offset="-2" postoffset="-2" />
+				</anchored>
+				<frame name="rowshade" />
+			</genericcontrol>
+			<button_icon name="button_desktop_scaleup">
+				<anchored to="frame_desktop_scale">
+					<top offset="5" />
+					<left anchor="center" offset="5" />
+				</anchored>
+				<icon normal="button_toolbar_expand" />
+				<tooltip textres="diceselect_tooltip_desktop_scaleup" />
+				<tintable />
+				<script>
+					function onButtonPress()
+						WindowManager.callOuterWindowFunction(window, "onDiceScaleUp");
+					end
+				</script>
+			</button_icon>
+			<button_icon name="button_desktop_scaledown">
+				<anchored to="frame_desktop_scale">
+					<top offset="5" />
+					<left anchor="center" offset="40" />
+				</anchored>
+				<icon normal="button_toolbar_collapse" />
+				<tooltip textres="diceselect_tooltip_desktop_scaledown" />
+				<tintable />
+				<script>
+					function onButtonPress()
+						WindowManager.callOuterWindowFunction(window, "onDiceScaleDown");
+					end
+				</script>
+			</button_icon>
+			<label name="label_desktop_scale">
+				<anchored to="frame_desktop_scale" height="20">
+					<top offset="5" />
+					<right anchor="center" offset="-10" />
+				</anchored>
+			</label>
+
+			<list_content name="list">
+				<class>diceselect_desktop_die</class>
+				<columns width="60" fillwidth="true" />
+				<readonly />
+			</list_content>
+			<scrollbar_content_list />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="diceselect_desktop_die">
+		<script file="utility/scripts/diceselect_desktop_die.lua" />
+		<sheetdata>
+			<buttoncontrol name="button">
+				<anchored position="insidetopleft" offset="0,0" width="60" height="60" />
+				<script>
+					function onButtonPress()
+						window.onButtonActivate();
+					end
+				</script>
+			</buttoncontrol>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="diceselect_groups">
+		<sheetdata>
+			<anchor_content_top />
+			<anchor_content_bottom />
+
+			<header_content_framed_headersimple name="header">
+				<static textres="diceselect_header_skin" />
+			</header_content_framed_headersimple>
+			<list_content name="list">
+				<class>diceselect_skin_group</class>
+				<readonly />
+				<sortby>
+					<control desc="true">owned</control>
+					<control>order</control>
+				</sortby>
+			</list_content>
+			<scrollbar_content_list />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="diceselect_skin_group">
+		<margins control="0,0,0,3" />
+		<script file="utility/scripts/diceselect_skin_group.lua" />
+		<sheetdata>
+			<hnc name="order" />
+			<hnc name="owned" />
+
+			<label name="name">
+				<anchored position="insidetop" offset="-5,3" height="20" />
+				<frame name="rowshade" />
+				<center />
+				<script>
+					function onClickDown()
+						return true;
+					end
+					function onClickRelease()
+						window.toggleVisibility();
+						return true;
+					end
+				</script>
+			</label>
+			<button_collapse_expand_toggle name="status">
+				<anchored to="name" position="insidetopleft" />
+				<disabled />
+			</button_collapse_expand_toggle>
+			<button_store_dlc_sm name="button_store">
+				<anchored to="name" position="insidetopright" width="50" />
+			</button_store_dlc_sm>
+			<windowlist name="list">
+				<anchored position="insidetop" offset="0,26" />
+				<class>diceselect_skin</class>
+				<columns width="60" fillwidth="true" />
+				<readonly />
+				<noscroll />
+				<invisible />
+				<sortby>
+					<control>id</control>
+				</sortby>
+			</windowlist>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="diceselect_skin">
+		<script file="utility/scripts/diceselect_skin.lua" />
+		<sheetdata>
+			<hnc name="id" />
+			<hnc name="owned" />
+			<hnc name="tintable" />
+			<hsc name="name" />
+
+			<buttoncontrol name="button">
+				<anchored position="insidetopleft" offset="0,0" width="60" height="60" />
+				<script>
+					function onButtonPress()
+						DiceSkinManager.onDiceSelectButtonActivate(window.getID());
+					end
+					function onDragStart(button, x, y, draginfo)
+						return DiceSkinManager.onDiceSelectButtonDrag(draginfo, window.getID());
+					end
+				</script>
+			</buttoncontrol>
+		</sheetdata>
+	</windowclass>
+</root>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<!--
+	Implementation Notes:
+		See template_layout_content_list_item.xml for guidelines
+-->
+
+<root>
+	<!-- List Item (Base) -->
+	<template name="token_listitem_base">
+		<tokenfield name="token">
+			<anchored width="20" height="20" />
+			<empty>token_empty</empty>
+		</tokenfield>
+	</template>
+
+	<!-- List Item (Right) -->
+	<template name="spacer_listitem_right">
+		<genericcontrol>
+			<anchored to="rightanchor" height="20">
+				<top />
+				<right relation="relative" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="icon_listitem_right">
+		<genericcontrol>
+			<anchored to="rightanchor" width="20" height="20">
+				<top />
+				<right relation="relative" offset="-2" postoffset="-2" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="link_listitem_right">
+		<linkfield_record name="link">
+			<anchored to="rightanchor" width="20" height="20">
+				<top />
+				<right relation="relative" offset="-2" postoffset="-2" />
+			</anchored>
+		</linkfield_record>
+	</template>
+	<template name="linkc_listitem_right">
+		<linkcontrol_record name="link">
+			<anchored to="rightanchor" width="20" height="20">
+				<top />
+				<right relation="relative" offset="-2" postoffset="-2" />
+			</anchored>
+		</linkcontrol_record>
+	</template>
+	<template name="combobox_listitem_right">
+		<combobox>
+			<anchored to="rightanchor" width="100" height="20">
+				<top />
+				<right relation="relative" offset="-10" postoffset="-10" />
+			</anchored>
+			<frame>
+				<name>fieldlight</name>
+				<offset>10,5,10,5</offset>
+			</frame>
+			<listdirection>down</listdirection>
+			<listmaxsize>6</listmaxsize>
+		</combobox>
+	</template>
+
+	<!-- List Item (Left) -->
+	<template name="spacer_listitem_left">
+		<genericcontrol>
+			<anchored to="leftanchor" height="20">
+				<top />
+				<left relation="relative" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="icon_listitem_left">
+		<genericcontrol>
+			<anchored to="leftanchor" width="20" height="20">
+				<top />
+				<left relation="relative" offset="2" postoffset="2" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="link_listitem_left">
+		<linkfield_record name="link">
+			<anchored to="leftanchor" width="20" height="20">
+				<top />
+				<left relation="relative" offset="2" postoffset="2" />
+			</anchored>
+		</linkfield_record>
+	</template>
+	<template name="linkc_listitem_left">
+		<linkcontrol_record name="link">
+			<anchored to="leftanchor" width="20" height="20">
+				<top />
+				<left relation="relative" offset="2" postoffset="2" />
+			</anchored>
+		</linkcontrol_record>
+	</template>
+	<template name="token_listitem_left">
+		<token_listitem_base>
+			<anchored to="leftanchor">
+				<top />
+				<left relation="relative" offset="2" postoffset="2" />
+			</anchored>
+		</token_listitem_base>
+	</template>
+	<template name="token_listitem_left_static">
+		<token_listitem_left>
+			<readonly />
+		</token_listitem_left>
+	</template>
+</root>

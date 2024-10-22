@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charsheet">
+		<frame>charsheet</frame>
+		<sizelimits>
+			<minimum width="525" height="568" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_npc</minimize>
+		<tooltip field="name" />
+		<softclose />
+		<export>character</export>
+		<sheetdata>
+			<sub_charsheet_overview name="overview" />
+
+			<sub_charsheet name="main">
+				<class>charsheet_main</class>
+			</sub_charsheet>
+			<sub_charsheet name="abilities">
+				<class>charsheet_abilities</class>
+			</sub_charsheet>
+			<sub_charsheet name="inventory">
+				<class>charsheet_inventory</class>
+			</sub_charsheet>
+			<sub_charsheet name="notes">
+				<class>charsheet_notes</class>
+			</sub_charsheet>
+
+			<tabs_charsheet name="tabs">
+				<tab>
+					<tabres>tab_main</tabres>
+					<subwindow>main</subwindow>
+				</tab>
+				<tab>
+					<tabres>tab_abilities</tabres>
+					<subwindow>abilities</subwindow>
+				</tab>
+				<tab>
+					<tabres>tab_inventory</tabres>
+					<subwindow>inventory</subwindow>
+				</tab>
+				<tab>
+					<tabres>tab_notes</tabres>
+					<subwindow>notes</subwindow>
+				</tab>
+			</tabs_charsheet>
+		
+			<close_charsheet />
+			<resize_charsheet />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="charsheet_overview">
+		<sheetdata>
+			<genericcontrol name="leftanchor">
+				<anchored position="insidetopleft" offset="0,0" width="0" height="0" />
+				<disabled />
+			</genericcontrol>
+			<genericcontrol name="rightanchor">
+				<anchored position="insidetopright" offset="0,0" width="0" height="0" />
+				<disabled />
+			</genericcontrol>
+
+			<picture_charsheet name="portrait" />
+
+			<button_charactivate_charsheet name="speak" />
+			
+			<frame_char name="overviewframe">
+				<anchored to="rightanchor" height="45">
+					<top />
+					<left parent="leftanchor" relation="relative" />
+					<right relation="relative" />
+				</anchored>
+			</frame_char>
+			<string_labeled name="name">
+				<anchored to="overviewframe" position="insidetopleft" offset="15,10">
+					<right offset="-15" />
+				</anchored>
+				<labelres>char_label_name</labelres>
+			</string_labeled>
+		</sheetdata>
+	</windowclass>
+</root>

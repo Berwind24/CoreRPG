@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<template name="icon_usepower">
+		<buttoncontrol>
+			<anchored width="20" height="20" />
+			<icon normal="roll_cast" />
+			<tooltip textres="power_tooltip_use" />
+			<script>
+				function onButtonPress()
+					PowerManagerCore.usePower(window.getDatabaseNode());
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="buttongroup_counter_power" ruleset="5E">
+		<genericcontrol>
+			<anchored width="10" height="20" />
+			<stateicons>
+				<on>button_checkon</on>
+				<off>button_checkoff</off>
+			</stateicons>
+			<script file="campaign/scripts/buttongroup_counter_power_5E.lua" />
+		</genericcontrol>
+	</template>
+	<template name="buttongroup_counter_power" ruleset="4E|13th_Age">
+		<genericcontrol>
+			<anchored width="10" height="20" />
+			<stateicons>
+				<on>button_checkon</on>
+				<off>button_checkoff</off>
+			</stateicons>
+			<script file="campaign/scripts/buttongroup_counter_power_4E.lua" />
+		</genericcontrol>
+	</template>
+	<template name="buttongroup_counter_power" ruleset="3.5E|PFRPG|SFRPG|d20 Modern">
+		<genericcontrol>
+			<anchored width="10" height="20" />
+			<stateicons>
+				<on>button_checkon</on>
+				<off>button_checkoff</off>
+			</stateicons>
+			<script file="campaign/scripts/buttongroup_counter_power_35E.lua" />
+		</genericcontrol>
+	</template>
+
+	<template name="header_poweritem">
+		<subwindow name="header">
+			<anchored position="insidetopleft">
+				<right parent="rightanchor" anchor="left" relation="relative" offset="-2" />
+			</anchored>
+			<class>power_item_header</class>
+			<activate />
+			<fastinit />
+		</subwindow>
+	</template>
+	<template name="anchor_poweritem_right">
+		<genericcontrol name="rightanchor">
+			<anchored position="insidetopright" offset="0,2" height="0" width="0" />
+			<disabled />
+			<invisible />
+		</genericcontrol>
+	</template>
+	<template name="linkc_poweritem">
+		<linkcontrol name="shortcut">
+			<anchored to="rightanchor" width="20" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+			<class>power</class>
+			<readonly />
+		</linkcontrol>
+	</template>
+	<template name="button_poweritem_idelete">
+		<button_idelete name="idelete">
+			<anchored to="rightanchor" position="lefthigh" offset="5,0" />
+			<editmode>actions_iedit</editmode>
+		</button_idelete>
+	</template>
+	<template name="button_poweritem_toggle_actions">
+		<button_toggledetail>
+			<anchored to="rightanchor">
+				<top />
+				<right anchor="left" relation="relative" offset="0" />
+			</anchored>
+			<invisible />
+		</button_toggledetail>
+	</template>
+
+	<template name="anchor_poweritem_header_left">
+		<genericcontrol name="leftanchor">
+			<anchored position="insidetopleft" offset="0,2" />
+			<disabled />
+			<invisible />
+		</genericcontrol>
+	</template>
+	<template name="anchor_poweritem_header_right">
+		<genericcontrol name="rightanchor">
+			<anchored position="insidetopright" offset="0,2" width="0" height="0" />
+			<disabled />
+			<invisible />
+		</genericcontrol>
+	</template>
+	<template name="string_poweritem_header_base">
+		<simplestring>
+			<frame name="fieldlight" offset="7,5,7,5" />
+			<multilinespacing>20</multilinespacing>
+			<delaykeyupdate />
+			<nodrag />
+		</simplestring>
+	</template>
+	<template name="string_poweritem_header_name">
+		<string_poweritem_header_base name="name">
+			<anchored to="leftanchor">
+				<top />
+				<left anchor="right" relation="relative" offset="10" />
+				<right parent="" anchor="center" />
+			</anchored>
+			<script>
+				function onDoubleClick(x, y)
+					PowerManagerCore.usePower(window.getDatabaseNode());
+					return true;
+				end
+			</script>
+		</string_poweritem_header_base>
+	</template>
+	<template name="string_poweritem_header">
+		<string_poweritem_header_base>
+			<anchored to="rightanchor">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+				<left parent="" anchor="center" offset="10" />
+			</anchored>
+			<invisible />
+		</string_poweritem_header_base>
+	</template>
+
+	<windowclass name="power_item">
+		<margins control="0,0,0,2" />
+		<script file="campaign/scripts/power_item.lua" />
+		<sheetdata>
+			<anchor_poweritem_right name="rightanchor" />
+			<linkc_poweritem name="shortcut" />
+			<button_poweritem_idelete name="idelete" />
+			<button_poweritem_toggle_actions name="activatedetail" />
+
+			<header_poweritem name="header" />
+
+			<list_poweraction name="actions">
+				<invisible />
+			</list_poweraction>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="power_item" merge="join" ruleset="5E">
+		<script>
+			function onInit()
+				super.onInit();
+				windowlist.onChildWindowAdded(self);
+			end
+		</script>
+		<sheetdata>
+			<hs name="group" />
+			<hn name="level" />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="power_item_header" ruleset="5E">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<anchor_poweritem_header_left name="leftanchor" />
+			<genericcontrol name="usespacer">
+				<anchored to="leftanchor" width="10" height="20">
+					<top />
+					<left anchor="right" relation="relative" />
+				</anchored>
+			</genericcontrol>
+			<genericcontrol name="blank">
+				<anchored to="leftanchor" width="20" height="20">
+					<top />
+					<left anchor="right" relation="relative" />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<icon_usepower name="usepower">
+				<anchored to="leftanchor">
+					<top />
+					<left anchor="right" relation="relative" />
+				</anchored>
+				<invisible />
+			</icon_usepower>
+			<buttongroup_counter_power name="counter">
+				<anchored to="leftanchor">
+					<top />
+					<left anchor="right" relation="relative" />
+				</anchored>
+				<invisible />
+			</buttongroup_counter_power>
+			<button_checkbox name="preparedcheck" source="prepared">
+				<anchored to="leftanchor" width="20" height="20">
+					<top />
+					<left anchor="right" relation="relative" />
+				</anchored>
+				<invisible />
+			</button_checkbox>
+			<basicnumber name="prepared">
+				<anchored to="leftanchor" width="30" height="20">
+					<top />
+					<left anchor="right" relation="relative" />
+				</anchored>
+				<min>0</min>
+				<tooltip textres="power_tooltip_prepared" />
+				<invisible />
+			</basicnumber>
+			<cycler_power_useperiod name="usesperiod">
+				<anchored to="leftanchor">
+					<top />
+					<left anchor="right" relation="relative" offset="10" />
+				</anchored>
+				<invisible />
+			</cycler_power_useperiod>
+
+			<string_poweritem_header_name name="name">
+				<empty textres="library_recordtype_empty_spell" />
+			</string_poweritem_header_name>
+
+			<anchor_poweritem_header_right name="rightanchor" />
+			<string_poweritem_header name="group">
+				<tooltip textres="power_tooltip_group" />
+			</string_poweritem_header>
+			<list_poweraction_mini name="actionsmini" />
+			<string_poweritem_header name="shortdescription">
+				<tooltip textres="power_tooltip_summary" />
+			</string_poweritem_header>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="power_item" merge="join" ruleset="3.5E|PFRPG|SFRPG|d20 Modern">
+		<sheetdata>
+			<linkc_poweritem name="shortcut">
+				<class>spelldesc2</class>
+			</linkc_poweritem>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="power_item_header" ruleset="3.5E|PFRPG|SFRPG|d20 Modern">
+		<margins control="0,0,0,2" />
+		<script>
+			function onSpellCounterUpdate()
+				parentcontrol.window.windowlist.window.onSpellCounterUpdate();
+			end
+		</script>
+		<sheetdata>
+			<anchor_poweritem_header_left name="leftanchor" />
+			<genericcontrol name="usespacer">
+				<anchored to="leftanchor" width="10" height="20">
+					<top />
+					<left anchor="right" relation="relative" />
+				</anchored>
+			</genericcontrol>
+			<icon_usepower name="usepower">
+				<anchored to="leftanchor">
+					<top />
+					<left anchor="right" relation="relative" />
+				</anchored>
+			</icon_usepower>
+			<basicnumber name="cost">
+				<anchored to="leftanchor" width="20" height="20">
+					<top />
+					<left anchor="right" relation="relative" offset="5" />
+				</anchored>
+				<min>0</min>
+			</basicnumber>
+			<genericcontrol name="cost_spacer">
+				<anchored to="leftanchor" width="0" height="20">
+					<top />
+					<left anchor="right" relation="relative" offset="5" />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+			<buttongroup_counter_power name="counter">
+				<anchored to="leftanchor">
+					<top />
+					<left anchor="right" relation="relative" offset="5" />
+				</anchored>
+			</buttongroup_counter_power>
+
+			<string_poweritem_header_name name="name">
+				<empty textres="library_recordtype_empty_spell" />
+				<script>
+					function onDragStart(button, x, y, draginfo)
+						local node = window.getDatabaseNode();
+						if not node then
+							return false;
+						end
+						
+						local nLevel = 0;
+						local nodeSpellLevel = DB.getChild(node, "...");
+						if nodeSpellLevel then
+							nLevel = tonumber(string.sub(DB.getName(nodeSpellLevel), 6)) or 0;
+						end
+						
+						draginfo.setType("spellmove");
+						draginfo.setStringData(getValue());
+						draginfo.setNumberData(nLevel);
+						draginfo.setDatabaseNode(node);
+						
+						return true;
+					end
+				</script>
+			</string_poweritem_header_name>
+
+			<anchor_poweritem_header_right name="rightanchor" />
+			<list_poweraction_mini name="actionsmini" />
+			<string_poweritem_header name="shortdescription">
+				<empty textres="spell_emptydesc" />
+			</string_poweritem_header>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="power_item" merge="join" ruleset="4E|13th_Age">
+		<sheetdata>
+			<hs name="source" />
+			<hs name="action" />
+			<hs name="recharge">
+				<script>
+					function onValueChanged()
+						window.onDisplayChanged();
+					end
+				</script>
+			</hs>
+			
+			<linkc_poweritem name="shortcut">
+				<class>reference_power_custom</class>
+			</linkc_poweritem>
+
+			<list_poweraction name="actions">
+				<datasource>.abilities</datasource>
+				<script>
+					function onDrop(x, y, draginfo)
+						return CharManager.onDropPowerAbility(getDatabaseNode(), draginfo);
+					end
+				</script>
+			</list_poweraction>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="power_item_header" ruleset="4E|13th_Age">
+		<margins control="0,0,0,2" />
+		<script file="campaign/scripts/power_item_header_4E.lua" />
+		<sheetdata>
+			<hs name="recharge">
+				<script>
+					function onValueChanged()
+						window.onRechargeChanged();
+					end
+				</script>
+			</hs>
+
+			<anchor_poweritem_header_left name="leftanchor" />
+			<buttongroup_counter_power name="counter">
+				<anchored to="leftanchor">
+					<top />
+					<left anchor="right" relation="relative" />
+				</anchored>
+				<invisible />
+			</buttongroup_counter_power>
+			<icon_usepower name="useatwill">
+				<anchored to="leftanchor">
+					<top />
+					<left anchor="right" relation="relative" />
+				</anchored>
+				<invisible />
+			</icon_usepower>
+			<basicnumber name="prepared">
+				<anchored to="leftanchor" width="25" height="20">
+					<top />
+					<left anchor="right" relation="relative" />
+				</anchored>
+				<default>1</default>
+				<hideonvalue value="0" />
+				<invisible />
+			</basicnumber>
+
+			<string_poweritem_header_name name="name">
+				<empty textres="library_recordtype_empty_power" />
+			</string_poweritem_header_name>
+
+			<anchor_poweritem_header_right name="rightanchor" />
+			<list_poweraction_mini name="actionsmini">
+				<datasource merge="delete" />
+				<invisible merge="delete" />
+				<script file="campaign/scripts/power_action_list_mini_4E.lua" />
+			</list_poweraction_mini>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="power_item_mini">
+		<script file="campaign/scripts/power_item.lua" />
+		<sheetdata>
+			<anchor_poweritem_right name="rightanchor" />
+			<linkc_poweritem name="shortcut" />
+			
+			<header_poweritem name="header">
+				<class>power_item_header_mini</class>
+			</header_poweritem>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="power_item_mini" merge="join" ruleset="3.5E|PFRPG|SFRPG|d20 Modern">
+		<sheetdata>
+			<linkc_poweritem name="shortcut">
+				<class>spelldesc2</class>
+			</linkc_poweritem>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="power_item_header_mini" ruleset="3.5E|PFRPG|SFRPG|d20 Modern">
+		<margins control="0,0,0,2" />
+		<script>
+			function onSpellCounterUpdate()
+				parentcontrol.window.windowlist.window.onSpellCounterUpdate();
+			end
+		</script>
+		<sheetdata>
+			<anchor_poweritem_header_left name="leftanchor" />
+			<genericcontrol name="usespacer">
+				<anchored to="leftanchor" width="10" height="20">
+					<top />
+					<left anchor="right" relation="relative" />
+				</anchored>
+			</genericcontrol>
+			<icon_usepower name="usepower">
+				<anchored to="leftanchor">
+					<top />
+					<left anchor="right" relation="relative" />
+				</anchored>
+			</icon_usepower>
+			<basicnumber name="cost">
+				<anchored to="leftanchor" width="20" height="20">
+					<top />
+					<left anchor="right" relation="relative" offset="5" />
+				</anchored>
+				<min>0</min>
+			</basicnumber>
+			<genericcontrol name="cost_spacer">
+				<anchored to="leftanchor" width="0" height="20">
+					<top />
+					<left anchor="right" relation="relative" offset="5" />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+			<buttongroup_counter_power name="counter">
+				<anchored to="leftanchor">
+					<top />
+					<left anchor="right" relation="relative" offset="5" />
+				</anchored>
+			</buttongroup_counter_power>
+
+			<string_poweritem_header_name name="name">
+				<empty textres="library_recordtype_empty_spell" />
+			</string_poweritem_header_name>
+
+			<anchor_poweritem_header_right name="rightanchor" />
+			<list_poweraction_mini name="actionsmini">
+				<invisible merge="delete" />
+			</list_poweraction_mini>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="power_item_mini" merge="join" ruleset="4E|13th_Age">
+		<sheetdata>
+			<hs name="action" />
+			<hs name="source" />
+			<hs name="recharge" />
+
+			<linkc_poweritem name="shortcut">
+				<class>reference_power_custom</class>
+			</linkc_poweritem>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="power_item_header_mini" ruleset="4E|13th_Age">
+		<margins control="0,0,0,2" />
+		<script file="campaign/scripts/power_item_header_4E.lua" />
+		<sheetdata>
+			<hn name="prepared">
+				<default>1</default>
+			</hn>
+			<hs name="recharge">
+				<script>
+					function onValueChanged()
+						window.onRechargeChanged();
+					end
+				</script>
+			</hs>
+
+			<anchor_poweritem_header_left name="leftanchor" />
+			<buttongroup_counter_power name="counter">
+				<anchored to="leftanchor">
+					<top />
+					<left anchor="right" relation="relative" />
+				</anchored>
+				<invisible />
+			</buttongroup_counter_power>
+			<icon_usepower name="useatwill">
+				<anchored to="leftanchor">
+					<top />
+					<left anchor="right" relation="relative" />
+				</anchored>
+				<invisible />
+			</icon_usepower>
+			<string_poweritem_header_name name="name">
+				<empty textres="library_recordtype_empty_power" />
+			</string_poweritem_header_name>
+
+			<anchor_poweritem_header_right name="rightanchor" />
+			<list_poweraction_mini name="actionsmini">
+				<datasource merge="delete" />
+				<invisible merge="delete" />
+				<script file="campaign/scripts/power_action_list_mini_4E.lua" />
+			</list_poweraction_mini>
+		</sheetdata>
+	</windowclass>
+</root>

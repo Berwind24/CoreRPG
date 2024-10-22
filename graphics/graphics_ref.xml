@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<!-- Reference -->
+	<framedef name="reference-section">
+		<bitmap file="graphics/frames/reference-section.png" />
+		<offset>3,3,3,3</offset>
+	</framedef>
+	<framedef name="reference-chapter">
+		<bitmap file="graphics/frames/reference-chapter.png" />
+		<offset>3,3,3,3</offset>
+	</framedef>
+	<framedef name="button_ref_block_add_base">
+		<bitmap file="graphics/frames/ref_block_add_base.png" />
+		<offset>13,13,12,13</offset>
+	</framedef>
+	
+	<!-- Reference Block Frames -->
+	<framedef name="referenceblock-sidebar">
+		<bitmap file="graphics/frames/refblock_sidebar.png" />
+		<offset>22,21,21,21</offset>
+	</framedef>
+	<framedef name="referenceblock-text1">
+		<bitmap file="graphics/frames/refblock_text1.png" />
+		<offset>30,15,30,15</offset>
+	</framedef>
+	<framedef name="referenceblock-text2">
+		<bitmap file="graphics/frames/refblock_text2.png" />
+		<offset>37,34,31,31</offset>
+	</framedef>
+	<framedef name="referenceblock-text3">
+		<bitmap file="graphics/frames/refblock_text3.png" />
+		<offset>22,21,21,21</offset>
+	</framedef>
+	<framedef name="referenceblock-text4">
+		<bitmap file="graphics/frames/refblock_text4.png" />
+		<offset>20,20,20,20</offset>
+	</framedef>
+	<framedef name="referenceblock-text5">
+		<bitmap file="graphics/frames/refblock_text5.png" />
+		<offset>100,50,100,50</offset>
+	</framedef>
+	<framedef name="referenceblock-book">
+		<bitmap file="graphics/frames/refblock_book.png" />
+		<offset>60,53,70,47</offset>
+	</framedef>
+	<framedef name="referenceblock-page">
+		<bitmap file="graphics/frames/refblock_page.png" />
+		<offset>16,30,23,30</offset>
+	</framedef>
+	<framedef name="referenceblock-picture">
+		<bitmap file="graphics/frames/refblock_picture.png" />
+		<offset>32,30,32,30</offset>
+	</framedef>
+	<framedef name="referenceblock-pink">
+		<bitmap file="graphics/frames/refblock_pink.png" />
+		<offset>12,12,12,12</offset>
+	</framedef>
+	<framedef name="referenceblock-blue">
+		<bitmap file="graphics/frames/refblock_blue.png" />
+		<offset>12,12,12,12</offset>
+	</framedef>
+	<framedef name="referenceblock-brown">
+		<bitmap file="graphics/frames/refblock_brown.png" />
+		<offset>12,12,12,12</offset>
+	</framedef>
+	<framedef name="referenceblock-green">
+		<bitmap file="graphics/frames/refblock_green.png" />
+		<offset>12,12,12,12</offset>
+	</framedef>
+	<framedef name="referenceblock-yellow">
+		<bitmap file="graphics/frames/refblock_yellow.png" />
+		<offset>12,12,12,12</offset>
+	</framedef>
+	
+	<!-- Reference Manual Editing -->
+	<icon name="button_ref_moveup" file="graphics/buttons/button_ref_moveup.png" />
+	<icon name="button_ref_movedown" file="graphics/buttons/button_ref_movedown.png" />
+	
+	<icon name="button_ref_index_expand" file="graphics/buttons/button_ref_index_expand.png" />
+	<icon name="button_ref_index_collapse" file="graphics/buttons/button_ref_index_collapse.png" />
+	
+	<icon name="button_ref_block_dualtext" file="graphics/buttons/button_ref_block_dualtext.png" />
+	<icon name="button_ref_block_image" file="graphics/buttons/button_ref_block_image.png" />
+	<icon name="button_ref_block_header" file="graphics/buttons/button_ref_block_header.png" />
+	<icon name="button_ref_block_text" file="graphics/buttons/button_ref_block_text.png" />
+	<icon name="button_ref_block_textlimager" file="graphics/buttons/button_ref_block_textlimager.png" />
+	<icon name="button_ref_block_textrimagel" file="graphics/buttons/button_ref_block_textrimagel.png" />
+	<icon name="button_ref_block_frame" file="graphics/buttons/button_ref_block_frame.png" />
+
+	<icon name="button_ref_block_image_scaleup" file="graphics/buttons/button_ref_block_scaleup.png" />
+	<icon name="button_ref_block_image_scaledown" file="graphics/buttons/button_ref_block_scaledown.png" />
+	<icon name="button_ref_block_image_sizeclear" file="graphics/buttons/button_ref_block_sizeclear.png" />
+</root>

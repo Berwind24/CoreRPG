@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+	Please see the license.html file included with this distribution for 
+	attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="referencemanualpage" copy="record_window_story">
+		<placement>
+			<size width="650" height="650" />
+		</placement>
+		<sizelimits>
+			<minimum width="300" height="300" />
+		</sizelimits>
+		<sheetdata>
+			<!-- NOTE: Legacy override short term for layout -->
+			<sub_content_framed_groupbox_top name="header">
+				<anchored to="contentanchor">
+					<left offset="10" />
+					<right offset="-10" />
+					<top relation="relative" offset="10" postoffset="10" />
+				</anchored>
+				<frame name="groupbox" offset="10,10,10,10" />
+				<class>story_header_advanced</class>
+			</sub_content_framed_groupbox_top>
+			<sub_content_framed_groupbox name="content">
+				<class>story_content_advanced</class>
+			</sub_content_framed_groupbox>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="story_header_advanced" copy="record_header_story">
+		<script>
+			function update()
+				super.update();
+				story_paste.update();
+			end
+		</script>
+		<sheetdata>
+			<toolbar_action_header_right name="story_paste" insertbefore="name">
+				<script>
+					function onStoryPasteChanged()
+						self.update();
+					end
+					function update()
+						if Session.IsHost then
+							local bReadOnly = WindowManager.getReadOnlyState(window.getDatabaseNode());
+							local bCanPaste = StoryManager.hasPasteRecord();
+							setVisible(bCanPaste and not bReadOnly);
+						end
+					end
+				</script>
+			</toolbar_action_header_right>
+			<toolbar_action_header_right name="story_copy" insertbefore="name" />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="story_content_advanced">
+		<script file="campaign/scripts/story_advanced_content.lua" />
+		<sheetdata>
+			<anchor_content_top />
+			
+			<list_story_blocks name="blocks" />
+			<footer_story_blocks name="footer" />
+
+			<anchor_story_block_iadd_right />
+			<button_story_block_iadd name="button_iadd_block_textrimagel">
+				<blocktype>textrimagel</blocktype>
+			</button_story_block_iadd>
+			<button_story_block_iadd name="button_iadd_block_textlimager">
+				<blocktype>textlimager</blocktype>
+			</button_story_block_iadd>
+			<button_story_block_iadd name="button_iadd_block_image">
+				<blocktype>image</blocktype>
+			</button_story_block_iadd>
+			<button_story_block_iadd name="button_iadd_block_header">
+				<blocktype>header</blocktype>
+			</button_story_block_iadd>
+			<button_story_block_iadd name="button_iadd_block_dualtext">
+				<blocktype>dualtext</blocktype>
+			</button_story_block_iadd>
+			<button_story_block_iadd name="button_iadd_block_text">
+				<blocktype>text</blocktype>
+			</button_story_block_iadd>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="story_block">
+		<margins control="0,0,0,10" />
+		<sheetdata>
+			<anchor_content_top />
+			<anchor_story_block_right name="rightanchor" />
+		</sheetdata>
+	</windowclass>	
+
+	<windowclass name="frameselect">
+		<frame>tokenbag</frame>
+		<placement>
+			<size width="500" height="300" />
+		</placement>
+		<sizelimits>
+			<dynamic />
+		</sizelimits>
+		<script file="campaign/scripts/story_frameselect.lua" />
+		<sheetdata>
+			<windowtitlebar_tokenbag name="title" />
+			<windowmenubar_tokenbag name="menubar" />
+
+			<anchor_content_tokenbag_top />
+			<anchor_content_tokenbag_bottom />
+
+			<list_content name="list">
+				<class>frameselect_entry</class>
+				<columns width="110" fillwidth="true" />
+			</list_content>
+			<scrollbar_content_list />
+
+			<resize_tokenbag />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="frameselect_entry">
+		<frame>tokenbagasset</frame>
+		<margins control="0,0,0,5" />
+		<script>
+			local _sName;
+			function setData(sName)
+				_sName = sName;
+				if (_sName or "") ~= "" then
+					base.setFrame("referenceblock-" .. _sName);
+				end
+			end
+			function activate()
+				windowlist.window.activate(_sName);
+				return true;
+			end
+		</script>
+		<sheetdata>
+			<genericcontrol name="base">
+				<anchored position="insidetopleft" offset="5,5" width="100" height="100" />
+				<script>
+					function onClickDown()
+						return true;
+					end
+					function onClickRelease()
+						return window.activate();
+					end
+				</script>
+			</genericcontrol>
+		</sheetdata>
+	</windowclass>
+</root>

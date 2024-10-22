@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="treasureparcel">
+		<frame>recordsheet</frame>
+		<sizelimits>
+			<minimum width="550" height="400" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_parcel</minimize>
+		<tooltip field="name" />
+		<sharable />
+		<script>
+			function onInit()
+				self.onStateChanged();
+			end
+			function getRecordType()
+				return "treasureparcel";
+			end
+			function onLockChanged()
+				self.onStateChanged();
+			end
+			function onStateChanged()
+				if header.subwindow then
+					header.subwindow.update();
+				end
+				if sub_coins.subwindow then
+					sub_coins.subwindow.update();
+				end
+				if sub_items.subwindow then
+					sub_items.subwindow.update();
+				end
+			end
+			function onNameUpdated()
+				WindowManager.updateTooltip(self);
+			end
+			function onDrop(x, y, draginfo)
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				if bReadOnly then
+					return;
+				end
+				return ItemManager.handleAnyDrop(getDatabaseNode(), draginfo);
+			end
+		</script>
+		<sheetdata>
+			<windowmenubar_recordsheet name="menubar" />
+
+			<anchor_content_recordsheet_top name="contentanchor" />
+			<anchor_content_recordsheet_bottom name="bottomanchor" />
+
+			<sub_content_framed_groupbox_narrow_top name="header">
+				<class>parcel_header</class>
+			</sub_content_framed_groupbox_narrow_top>
+
+			<sub_content name="sub_coins">
+				<anchored>
+					<right anchor="center" offset="-60" />
+				</anchored>
+				<class>parcel_coins</class>
+			</sub_content>
+			<sub_content name="sub_items">
+				<anchored>
+					<left anchor="center" offset="-60" />
+				</anchored>
+				<class>parcel_items</class>
+			</sub_content>
+
+			<resize_recordsheet />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="parcel_header" copy="record_header" />
+
+	<windowclass name="parcel_coins">
+		<frame>groupbox</frame>
+		<script>
+			function onInit()
+				if Session.IsHost or DB.isOwner(getDatabaseNode()) then
+					if list.isEmpty() then
+						for _,sCurrency in ipairs(CurrencyManager.getCurrencies()) do
+							local w = list.createWindow();
+							w.description.setValue(sCurrency);
+						end
+						self.update();
+					end
+				end
+			end
+			function update()
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				
+				list_iedit.setVisible(not bReadOnly);
+				list_iadd.setVisible(not bReadOnly);
+
+				list.setReadOnly(bReadOnly);
+				for _,w in pairs(list.getWindows()) do
+					w.amount.setReadOnly(bReadOnly);
+					w.description.setReadOnly(bReadOnly);
+				end
+			end
+		</script>
+		<sheetdata>
+			<anchor_content_groupbox_top />
+			<anchor_content_groupbox_bottom />
+
+			<list_content_labeled_alternating name="list">
+				<datasource>.coinlist</datasource>
+				<class>parcel_coin</class>
+				<script>
+					function onDrop(x, y, draginfo)
+						return UtilityManager.getTopWindow(window).onDrop(x, y, draginfo);
+					end
+				</script>
+			</list_content_labeled_alternating>
+			<scrollbar_content_list />
+
+			<anchor_list_content_label_left />
+			<anchor_list_content_label_right />
+			<label_list_content_number_left name="label_count">
+				<anchored width="50" />
+				<static>#</static>
+			</label_list_content_number_left>
+			<label_list_content_button_iedit_right name="list_iedit" />
+			<label_list_content_button_iadd_right name="list_iadd" />
+			<label_list_content_noframe name="label_name">
+				<static textres="parcel_label_money" />
+			</label_list_content_noframe>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="parcel_coin">
+		<margins control="0,0,0,5" />
+		<sheetdata>
+			<anchor_listitem_right name="rightanchor" />
+			<button_listitem_idelete name="idelete">
+				<editmode>list_iedit</editmode>
+			</button_listitem_idelete>
+
+			<number_parcel name="amount">
+				<anchored width="55" />
+				<description field="description" />
+			</number_parcel>
+			<string_parcel name="description">
+				<anchored>
+					<left offset="70" />
+				</anchored>
+			</string_parcel>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="parcel_items">
+		<frame>groupbox</frame>
+		<script>
+			function update()
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				
+				list_iedit.setVisible(not bReadOnly);
+				list_iadd.setVisible(not bReadOnly);
+
+				list.setReadOnly(bReadOnly);
+				for _,w in pairs(list.getWindows()) do
+					if w.count then
+						w.count.setReadOnly(bReadOnly);
+					end
+					if w.isidentified then
+						w.isidentified.setReadOnly(bReadOnly);
+					end
+					w.name.setReadOnly(bReadOnly);
+					w.nonid_name.setReadOnly(bReadOnly);
+				end
+			end
+		</script>
+		<sheetdata>
+			<anchor_content_groupbox_top />
+			<anchor_content_groupbox_bottom />
+
+			<list_content_labeled_alternating name="list">
+				<datasource>.itemlist</datasource>
+				<class>parcel_item</class>
+				<empty font="list-empty" textres="parcel_emptylist" />
+				<script>
+					function onSortCompare(w1, w2)
+						return ItemManager.getSortName(w1.getDatabaseNode()) &gt; ItemManager.getSortName(w2.getDatabaseNode());
+					end
+					function onDrop(x, y, draginfo)
+						return UtilityManager.getTopWindow(window).onDrop(x, y, draginfo);
+					end
+				</script>
+			</list_content_labeled_alternating>
+			<scrollbar_content_list />
+
+			<anchor_list_content_label_left />
+			<anchor_list_content_label_right />
+			<label_list_content_number_left name="label_count">
+				<anchored width="30" />
+				<static>#</static>
+			</label_list_content_number_left>
+			<label_list_content_button_iedit_right name="list_iedit" />
+			<label_list_content_button_iadd_right name="list_iadd" />
+			<label_list_content name="label_name">
+				<static textres="parcel_label_itemname" />
+			</label_list_content>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="parcel_item">
+		<margins control="0,0,0,5" />
+		<script>
+			function onInit()
+				self.onIDChanged();
+			end
+			function onIDChanged()
+				local bID = RecordDataManager.getIDState("item", getDatabaseNode());
+				name.setVisible(bID);
+				nonid_name.setVisible(not bID);
+			end
+		</script>
+		<sheetdata>
+			<anchor_listitem_right name="rightanchor" />
+			<button_listitem_idelete name="idelete">
+				<editmode>list_iedit</editmode>
+			</button_listitem_idelete>
+			<linkc_listitem_right name="shortcut">
+				<class>item</class>
+			</linkc_listitem_right>
+			<button_record_isidentified name="isidentified" />
+
+			<number_parcel name="count" />
+			<string_parcel name="name">
+				<empty textres="library_recordtype_empty_item" />
+			</string_parcel>
+			<string_parcel name="nonid_name">
+				<empty textres="library_recordtype_empty_nonid_item" />
+			</string_parcel>
+		</sheetdata>
+	</windowclass>
+</root>

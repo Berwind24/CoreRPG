@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!--
+	Please see the license.html file included with this distribution for
+	attribution and copyright information.
+-->
+
+<root>
+	<!-- Window Menu -->
+	<template name="windowmenubar">
+		<subwindow>
+			<anchored position="insidetop" />
+			<class>windowmenubar</class>
+			<activate />
+		</subwindow>
+	</template>
+	<windowclass name="windowmenubar">
+		<script>
+			function onInit()
+				WindowMenuManager.populate(self);
+			end
+		</script>
+		<sheetdata>
+			<toolbar_anchor_left />
+			<toolbar_anchor_right />
+		</sheetdata>
+	</windowclass>
+
+	<!-- Window resize handle template -->
+	<template name="resize">
+		<genericcontrol name="resize">
+			<anchored height="18" width="18">
+				<right />
+				<bottom />
+			</anchored>
+			<icon>window_resize</icon>
+			<disabled />
+		</genericcontrol>
+	</template>
+
+	<!-- Legacy window button templates -->
+	<template name="close_base">
+		<buttoncontrol name="button_close">
+			<icon normal="button_close" pressed="button_close_down" hover="button_close_hover" />
+			<script>
+				function onButtonPress()
+					local wTop = UtilityManager.getTopWindow(window);
+					local sClass = wTop.getClass();
+					if StringManager.contains({ "imagebackpanel", "imagemaxpanel", "imagefullpanel", }, sClass) then
+						ImageManager.closePanel();
+					else
+						wTop.close();
+					end
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="close">
+		<close_base>
+			<anchored height="24" width="24">
+				<top />
+				<right />
+			</anchored>
+		</close_base>
+	</template>
+	<template name="help_base">
+		<buttoncontrol name="button_help">
+			<icon normal="button_help" pressed="button_help_down" hover="button_help_hover" />
+			<script>
+				function onButtonPress()
+					local sURL = nil;
+					if urlres then
+						sURL = Interface.getString(urlres[1]);
+					elseif url then
+						sURL = url[1];
+					else
+						local wTop = UtilityManager.getTopWindow(window);
+						if wTop.helplinkres then
+							sURL = Interface.getString(wTop.helplinkres[1]);
+						elseif wTop.helplink then
+							sURL = wTop.helplink[1];
+						end
+					end
+
+					UtilityManager.sendToHelpLink(sURL);
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="help">
+		<help_base>
+			<anchored height="24" width="24">
+				<top />
+				<right offset="-24" />
+			</anchored>
+		</help_base>
+	</template>
+</root>

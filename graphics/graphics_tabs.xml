@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<framedef name="tabs">
+		<bitmap file="graphics/tabs/tabs.png" />
+		<topleft rect="0,0,18,69" />
+		<left rect="0,69,18,134" />
+		<bottomleft rect="0,203,18,23" />
+	</framedef>
+	<icon name="tabtop" file="graphics/tabs/tabtop.png" />
+
+	<framedef name="tabs_h">
+		<bitmap file="graphics/tabs/tabs_h.png" />
+		<topleft rect="0,0,69,18" />
+		<top rect="69,0,134,18" />
+		<topright rect="203,0,23,18" />
+	</framedef>
+	<icon name="tabtop_h" file="graphics/tabs/tabtop_h.png" />
+	
+	<font name="tabfont">
+		<ttf file="graphics/fonts/Noto_Sans/NotoSans-Bold.ttf" name="Noto Sans Bold" size="14" />
+		<color value="#FFFFFF" />
+	</font>
+	
+	<!-- LEGACY - TO BE DEPRECATED (2024-08-13) -->
+	<icon name="tab_inventory" file="graphics/tabs/tab_inventory.png" />
+	<icon name="tab_main" file="graphics/tabs/tab_main.png" />
+	<icon name="tab_notes" file="graphics/tabs/tab_notes.png" />
+	<icon name="tab_order" file="graphics/tabs/tab_order.png" />
+	
+	<icon name="tab_actions" file="graphics/tabs/tab_actions.png" />
+	<icon name="tab_abilities" file="graphics/tabs/tab_abilities.png" />
+	<icon name="tab_combat" file="graphics/tabs/tab_combat.png" />
+	<icon name="tab_other" file="graphics/tabs/tab_other.png" />
+	<icon name="tab_powers" file="graphics/tabs/tab_powers.png" />
+	<icon name="tab_skills" file="graphics/tabs/tab_skills.png" />
+	<icon name="tab_spells" file="graphics/tabs/tab_spells.png" />
+	<icon name="tab_xp" file="graphics/tabs/tab_xp.png" />
+	<icon name="tab_log" file="graphics/tabs/tab_log.png" />
+</root>

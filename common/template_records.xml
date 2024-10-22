@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<includefile source="common/template_records_window.xml" />
+	<includefile source="common/template_records_header.xml" />
+	<includefile source="common/template_records_content.xml" />
+
+	<template name="button_record_isidentified">
+		<buttoncontrol name="isidentified">
+			<anchored to="rightanchor" width="20" height="20">
+				<top />
+				<right anchor="left" relation="relative" offset="-5" />
+			</anchored>
+			<state icon="record_unidentified" tooltipres="tooltip_nonid" />
+			<state icon="record_identified" tooltipres="tooltip_id" />
+			<gmeditonly />
+			<gmvisibleonly />
+			<script file="common/scripts/button_record_isidentified.lua" />
+		</buttoncontrol>
+	</template>
+	<template name="hidden_record_isidentified">
+		<genericcontrol>
+			<bounds>0,0,0,0</bounds>
+			<invisible />
+			<script file="common/scripts/hidden_record_isidentified.lua" />
+		</genericcontrol>
+	</template>
+
+	<!-- Templates - Legacy -->
+	<template name="subwindow_record">
+		<subwindow>
+			<anchored to="contentframe" position="over" />
+		</subwindow>
+	</template>
+	<template name="scrollbar_record">
+		<scrollbar>
+			<anchored to="contentframe" />
+		</scrollbar>
+	</template>
+	<template name="ft_record">
+		<simpleft />
+	</template>
+</root>

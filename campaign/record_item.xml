@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<template name="sub_item_standard">
+		<sub_content_column name="sub_standard">
+			<class>item_main_standard</class>
+		</sub_content_column>
+	</template>
+	<template name="sub_item_pack">
+		<sub_content_column name="sub_pack">
+			<script>
+				function update(bReadOnly, bID)
+					if bID then 
+						local nodeRecord = window.getDatabaseNode();
+						if ItemManager.isPack(nodeRecord) then
+							setValue("item_main_subitems", nodeRecord);
+							subwindow.update(bReadOnly, bID);
+							return;
+						end
+					end
+					setValue("", "");
+				end
+			</script>
+		</sub_content_column>
+	</template>
+
+	<windowclass name="item" copy="record_window_tabbed">
+		<minimize>minimized_item</minimize>
+		<tab>
+			<name>main</name>
+			<resource>tab_main</resource>
+			<class>item_main</class>
+			<embed />
+		</tab>
+		<tab merge="add">
+			<name>pictures</name>
+			<resource>tab_pictures</resource>
+			<class>record_content_pictures</class>
+			<embed />
+		</tab>
+		<sheetdata>
+			<sub_content_framed_groupbox_top name="header">
+				<class>item_header</class>
+			</sub_content_framed_groupbox_top>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="item_header" copy="record_header" /> 
+
+	<windowclass name="item_main">
+		<margins control="0,0,0,2" />
+		<script file="campaign/scripts/item_main.lua" />
+		<sheetdata>
+			<anchor_content_top />
+
+			<sub_record_nonid_notes name="sub_nonid" />
+			<sub_item_standard name="sub_standard" />
+			
+			<ft_content_columnh_full name="notes" />
+
+			<sub_item_pack name="sub_pack" />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="item_main_standard">
+		<margins control="0,0,0,2" />
+		<script>
+			function update(bReadOnly, bID)
+				WindowManager.callSafeControlUpdate(self, "cost", bReadOnly, not bID);
+				WindowManager.callSafeControlUpdate(self, "weight", bReadOnly, not bID);
+
+				local bShow = WindowManager.getAnyControlVisible(self, { "cost", "weight", });
+				parentcontrol.setVisible(bShow);
+			end
+		</script>
+		<sheetdata>
+			<anchor_content_top />
+
+			<label_content_column name="cost_label">
+				<static textres="item_label_cost" />
+			</label_content_column>
+			<string_content_columnh name="cost" />
+
+			<label_content_column name="weight_label">
+				<static textres="item_label_weight" />
+			</label_content_column>
+			<number_content_columnh name="weight" />
+
+			<line_content_top name="divider" />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="item_main_subitems">
+		<script>
+			function update(bReadOnly, bID)
+				WindowManager.callSafeControlUpdate(self, "list", bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<anchor_content_top />
+
+			<header_content_framed_headersimple name="list_header">
+				<static textres="item_label_subitems" />
+			</header_content_framed_headersimple>
+			<button_iedit name="list_iedit">
+				<anchored to="list_header" position="righthigh" offset="-20,0" />
+				<edittarget>list</edittarget>
+			</button_iedit>
+			<button_iadd name="list_iadd">
+				<anchored to="list_iedit" position="lefthigh" offset="5,0" />
+				<target>list</target>
+			</button_iadd>
+			<list_content_column name="list">
+				<datasource>.subitems</datasource>
+				<sortby><control>name</control></sortby>
+				<class>item_main_subitems_item</class>
+			</list_content_column>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="item_main_subitems_item">
+		<margins control="0,0,0,2" />
+		<script>
+			function update(bReadOnly)
+				count.setReadOnly(bReadOnly);
+				name.setReadOnly(bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<anchor_listitem_left_sm name="leftanchor" />
+			<number_listitem_left name="count" />
+
+			<anchor_listitem_right_sm name="rightanchor" />
+			<link_listitem_right name="link" />
+			<button_listitem_idelete name="idelete" />
+
+			<string_listitem_center name="name">
+				<font>sheetlabel</font>
+				<empty textres="library_recordtype_empty_item" />
+			</string_listitem_center>
+		</sheetdata>
+	</windowclass>
+</root>

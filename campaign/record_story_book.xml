@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+	Please see the license.html file included with this distribution for 
+	attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="story_book_list">
+		<frame>referencelist</frame>
+		<sizelimits>
+			<minimum width="400" height="400" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_reference</minimize>
+		<script file="campaign/scripts/story_book_list.lua" />
+		<sheetdata>
+			<windowtitlebar_referencelist name="title">
+				<resource>library_recordtype_label_story_book</resource>
+			</windowtitlebar_referencelist>
+			<windowmenubar_referencelist name="menubar" />
+
+			<anchor_content_referencelist_top />
+			<anchor_content_referencelist_bottom />
+
+			<area_content_top name="area_buttons">
+				<anchored height="30" />
+				<gmvisibleonly />
+			</area_content_top>
+			<button_text_sm name="button_campaign">
+				<anchored to="area_buttons" position="insidetopleft" offset="5,5" width="80" />
+				<state textres="campaign" />
+				<gmvisibleonly />
+				<script>
+					function onButtonPress()
+						StoryManager.openBook();
+					end
+				</script>
+			</button_text_sm>
+
+			<filter_content_bottom name="filter" />
+			<sub_content_framed_groupbox_hidden_bottom name="notes" />
+			<sub_content_paging name="sub_paging" />
+
+			<list_content_framed_groupbox_alternating name="list">
+				<class>story_book_list_item</class>
+				<sortby><control>name</control></sortby>
+				<readonly />
+			</list_content_framed_groupbox_alternating>
+			<scrollbar_content_list />
+
+			<resize_referencelist />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="story_book_list_item">
+		<margins control="0,0,0,2" />
+		<script>
+			function setData(v)
+				name.setValue(v.sDisplayName);
+				link.setValue("reference_manual", DB.getPath(v.node));
+			end
+		</script>
+		<sheetdata>
+			<anchor_listitem_left_sm />
+			<anchor_listitem_right_sm />
+			
+			<linkc_listitem_left name="link">
+				<description control="name" merge="replace" />
+			</linkc_listitem_left>
+			<stringc_listitem_center_noframe_static_linked name="name" />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="reference_manual">
+		<frame>utilitybox</frame>
+		<placement>
+			<size width="1000" height="650" />
+		</placement>
+		<sizelimits>
+			<minimum width="440" height="300" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_reference</minimize>
+		<windowmenu>
+			<showlink />
+		</windowmenu>
+		<script file="campaign/scripts/story_book.lua" />
+		<sheetdata>
+			<windowtitlebar_utilitybox name="title" />
+			<windowmenubar_utilitybox name="menubar" />
+
+			<anchor_content_utilitybox_top />
+			<anchor_content_utilitybox_bottom />
+
+			<area_content_bottom name="area_controls">
+				<anchored height="30" />
+			</area_content_bottom>
+			<spacer_content_bottom name="spacer_bottom" />
+
+			<anchor_story_book_index name="anchor_index" />
+
+			<frame_story_book_index name="frame_index" />
+			<sub_story_book_index name="sub_index" />
+			<scrollbar_story_book_index name="scrollbar_index" />
+
+			<filter_story_book_index name="filter" />
+			<button_story_book_index_expand name="button_index_expand" />
+			<button_story_book_index_collapse name="button_index_collapse" />
+
+			<button_story_book_index_show name="button_index_show" />
+
+			<frame_story_book_page name="frame_content" />
+			<sub_story_book_page name="content" />
+
+			<sub_story_book_paging name="sub_paging" />
+
+			<resize_utilitybox />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="story_book_index">
+		<script>
+			function update(bReadOnly, bLockChanged)
+				for _,wChapter in ipairs(list.getWindows()) do
+					wChapter.update(bReadOnly, bLockChanged);
+				end
+
+				list_iadd.setVisible(not bReadOnly);
+				spacer.setVisible(not bReadOnly);
+
+				if bReadOnly and (DB.getModule(getDatabaseNode()) == "") then
+					StoryManager.onBookKeywordGen();
+				end
+			end
+			function onDrop(x, y, draginfo)
+				return StoryManager.onBookIndexDrop(self, draginfo);
+			end
+		</script>
+		<sheetdata>
+			<anchor_content_top />
+
+			<list_story_book_index_chapters name="list" />
+
+			<button_story_book_index_iadd name="list_iadd">
+				<state textres="story_book_index_button_chapter_new" />
+			</button_story_book_index_iadd>
+			<spacer_content_top name="spacer" />
+
+			<toolbar_anchor_right />
+			<toolbar_field_right name="locked">
+				<initbyname />
+			</toolbar_field_right>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="story_book_index_chapter">
+		<script>
+			function update(bReadOnly, bLockChanged)
+				if bLockChanged then
+					if not bReadOnly then
+						list.setVisible(true);
+					end
+				end
+
+				for _,wSection in ipairs(list.getWindows()) do
+					wSection.update(bReadOnly, bLockChanged);
+				end
+
+				name.setReadOnly(bReadOnly);
+
+				idelete.setVisible(not bReadOnly);
+				idelete.setValue(0);
+				imoveup.setVisible(not bReadOnly);
+				imovedown.setVisible(not bReadOnly);
+				list_iadd.setVisible(not bReadOnly);
+				spacer.setVisible(not bReadOnly);
+			end
+			function showFullHeaders(bShow)
+				frame.setVisible(bShow);
+				name.setVisible(bShow);
+			end
+			function onDrop(x, y, draginfo)
+				return StoryManager.onBookIndexDrop(self, draginfo);
+			end
+		</script>
+		<sheetdata>
+			<anchor_content_top />
+
+			<frame_story_book_index_chapter name="frame" />
+			<anchor_story_book_index_chapter_right name="rightanchor" />
+			<button_story_book_index_idelete name="idelete" />
+			<button_story_book_index_imoveup name="imoveup" />
+			<button_story_book_index_imovedown name="imovedown" />
+			<string_story_book_index_chapter_name name="name" />
+
+			<list_story_book_index_sections name="list" />
+
+			<button_story_book_index_iadd name="list_iadd">
+				<state textres="story_book_index_button_section_new" />
+			</button_story_book_index_iadd>
+			<spacer_content_top name="spacer" />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="story_book_index_section">
+		<script>
+			function update(bReadOnly, bLockChanged)
+				if bLockChanged then
+					list.setVisible(not bReadOnly);
+				elseif not bReadOnly then
+					list.setVisible(true);
+				end
+				
+				for _,wPage in ipairs(list.getWindows()) do
+					wPage.update(bReadOnly, bLockChanged);
+				end
+
+				name.setReadOnly(bReadOnly);
+				
+				idelete.setVisible(not bReadOnly);
+				idelete.setValue(0);
+				imoveup.setVisible(not bReadOnly);
+				imovedown.setVisible(not bReadOnly);
+				list_iadd.setVisible(not bReadOnly);
+				spacer.setVisible(not bReadOnly);
+			end
+			function showFullHeaders(bShow)
+				frame.setVisible(bShow);
+				name.setVisible(bShow);
+			end
+			function onDrop(x, y, draginfo)
+				return StoryManager.onBookIndexDrop(self, draginfo);
+			end
+		</script>
+		<sheetdata>
+			<anchor_content_top />
+
+			<frame_story_book_index_section name="frame" />
+			<anchor_story_book_index_section_right name="rightanchor" />
+			<button_story_book_index_idelete name="idelete" />
+			<button_story_book_index_imoveup name="imoveup" />
+			<button_story_book_index_imovedown name="imovedown" />
+			<string_story_book_index_section_name name="name" />
+
+			<list_story_book_index_pages name="list" />
+			
+			<button_story_book_index_iadd name="list_iadd">
+				<state textres="story_book_index_button_page_new" />
+			</button_story_book_index_iadd>
+			<spacer_content_top name="spacer" />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="story_book_index_page">
+		<margins control="0,0,0,2" />
+		<script>
+			function setLink(sClass, sRecord)
+				listlink.setValue(sClass, sRecord);
+				name.updateLink();
+			end
+			function update(bReadOnly, bLockChanged)
+				name.setReadOnly(bReadOnly);
+				
+				idelete.setVisible(not bReadOnly);
+				idelete.setValue(0);
+				imoveup.setVisible(not bReadOnly);
+				imovedown.setVisible(not bReadOnly);
+			end
+			function onDrop(x, y, draginfo)
+				return StoryManager.onBookIndexDrop(self, draginfo);
+			end
+		</script>
+		<sheetdata>
+			<hlink name="listlink" />
+			<hs name="keywords" />
+
+			<anchor_content_top />
+
+			<frame_story_book_index_page name="frame" />
+			<anchor_story_book_index_page_right name="rightanchor" />
+			<button_story_book_index_idelete name="idelete" />
+			<button_story_book_index_imoveup name="imoveup" />
+			<button_story_book_index_imovedown name="imovedown" />
+			<string_story_book_index_page_name name="name" />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="story_book_page_simple">
+		<script file="common/scripts/record_window.lua" />
+		<sheetdata>
+			<anchor_content_top />
+			<anchor_content_bottom />
+
+			<sub_content_top name="header">
+				<class>story_book_page_simple_header</class>
+			</sub_content_top>
+
+			<sub_content_scroll name="content">
+				<class>record_content_text</class>
+			</sub_content_scroll>
+			<scrollbar_content />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="story_book_page_simple_header" copy="record_header_story">
+		<sheetdata>
+			<linkc_record_header name="pagelink" insertbefore="name">
+				<class>encounter</class>
+			</linkc_record_header>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="story_book_page_advanced">
+		<script file="common/scripts/record_window.lua" />
+		<sheetdata>
+			<anchor_content_top />
+			<anchor_content_bottom />
+
+			<sub_content_top name="header">
+				<class>story_book_page_advanced_header</class>
+			</sub_content_top>
+
+			<sub_content_scroll name="content">
+				<class>story_content_advanced</class>
+			</sub_content_scroll>
+			<scrollbar_content />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="story_book_page_advanced_header" copy="story_header_advanced">
+		<sheetdata>
+			<linkc_record_header name="pagelink" insertbefore="name">
+				<class>referencemanualpage</class>
+			</linkc_record_header>
+
+			<toolbar_field_header_right name="locked" insertbefore="story_paste" />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="reference_manualtextwide" copy="story_book_page_advanced" />
+</root>
